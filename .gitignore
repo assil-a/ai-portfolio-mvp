@@ -83,6 +83,8 @@ pids
 *.pid
 *.seed
 *.pid.lock
+*.bat 
+*.ps1
 
 # Coverage directory used by tools like istanbul
 coverage/

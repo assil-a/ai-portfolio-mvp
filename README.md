@@ -6,6 +6,8 @@ A lightweight web application for managing and monitoring GitHub repository port
 
 🚀 **Ready to run it?** Follow our [Configuration Guide](CONFIGURATION_GUIDE.md) for step-by-step setup instructions!
 
+💻 **Windows user?** Check out our [Windows Setup Guide](WINDOWS_SETUP.md) for Windows-specific instructions!
+
 ## Features
 
 - **Repository Management**: Add GitHub repositories via URL and track their metadata
