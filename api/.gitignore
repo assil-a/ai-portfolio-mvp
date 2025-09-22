@@ -1,0 +1,97 @@
+# Python specific ignores for API
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Environment variables and secrets
+.env
+.env.*
+*.env
+.envrc
+
+# Private keys and certificates
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.der
+github-app-*.pem
+private-key.pem
+app-private-key.pem
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+database.url
+db-credentials.json
+
+# Configuration files with secrets
+config/secrets.json
+config/production.json
+secrets.yaml
+secrets.yml
+
+# API tokens and credentials
+oauth-token.txt
+access-token.txt
+api-key.txt
+*.token
+
+# Testing
+.coverage
+.pytest_cache/
+.tox/
+htmlcov/
+.hypothesis/
+coverage.xml
+*.cover
+
+# Logs
+*.log
+logs/
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Alembic
+# Keep the versions directory but ignore any files with secrets
+migrations/versions/*secret*
+migrations/versions/*private*
+
+# Backup files
+*.backup
+*.bak
+*.old

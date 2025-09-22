@@ -2,6 +2,10 @@
 
 A lightweight web application for managing and monitoring GitHub repository portfolios. Track repository activity, contributor engagement, and project health across your organization's codebase.
 
+📖 **New to this project?** Check out our [Simple Explanation](SIMPLE_EXPLANATION.md) for an easy-to-understand overview!
+
+🚀 **Ready to run it?** Follow our [Configuration Guide](CONFIGURATION_GUIDE.md) for step-by-step setup instructions!
+
 ## Features
 
 - **Repository Management**: Add GitHub repositories via URL and track their metadata
@@ -22,38 +26,40 @@ A lightweight web application for managing and monitoring GitHub repository port
 
 ## Quick Start
 
-### Prerequisites
+### Option 1: Interactive Setup (Recommended for First-Time Users)
 
+```bash
+git clone <repository-url>
+cd ai-portfolio-console/ops
+make quick-setup
+```
+
+The interactive wizard will:
+- Guide you through GitHub token setup
+- Configure environment variables
+- Build and start all services
+- Test the setup automatically
+
+### Option 2: Manual Setup
+
+#### Prerequisites
 - Docker and Docker Compose
-- GitHub App or OAuth App (for API access)
+- GitHub Personal Access Token or GitHub App
 
-### 1. Clone and Setup
-
+#### Steps
 ```bash
 git clone <repository-url>
 cd ai-portfolio-console
 cp ops/.env.example ops/.env
-```
-
-### 2. Configure GitHub Integration
-
-Edit `ops/.env` with your GitHub credentials:
-
-```bash
-# GitHub App (Recommended)
-GITHUB_APP_ID=your_app_id
-GITHUB_APP_PRIVATE_KEY="-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----"
-
-# OR GitHub OAuth (Fallback)
-OAUTH_GITHUB_CLIENT_ID=your_client_id
-OAUTH_GITHUB_CLIENT_SECRET=your_client_secret
-```
-
-### 3. Start the Application
-
-```bash
+# Edit ops/.env with your GitHub credentials
 cd ops
 make dev
+```
+
+### Verify Your Setup
+
+```bash
+make test-setup  # Run automated tests
 ```
 
 This will:
@@ -112,8 +118,11 @@ make restart      # Restart services
 make migrate      # Run migrations
 make seed         # Seed sample data
 
-# Testing
+# Setup & Testing
+make quick-setup  # Interactive setup wizard (first-time users)
+make test-setup   # Test if setup is working correctly
 make test         # Run all tests
+make security-check # Run security validation
 make clean        # Clean up containers and volumes
 ```
 
@@ -192,6 +201,10 @@ make clean        # Clean up containers and volumes
 - **Input Validation**: Validates all user inputs and API responses
 - **CORS Protection**: Configurable CORS settings
 - **Webhook Verification**: Verifies GitHub webhook signatures
+- **Secret Protection**: Comprehensive `.gitignore` files prevent committing sensitive data
+- **Environment Variables**: All secrets managed through environment variables
+
+⚠️ **Important**: See [SECURITY.md](docs/SECURITY.md) for detailed security guidelines and best practices.
 
 ## Monitoring
 

@@ -1,0 +1,63 @@
+# Environment files with secrets
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+.env.staging
+*.env
+
+# Private keys and certificates
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.der
+github-app-*.pem
+private-key.pem
+app-private-key.pem
+
+# OAuth and API tokens
+oauth-token.txt
+access-token.txt
+refresh-token.txt
+api-key.txt
+*.token
+
+# Database credentials
+database.url
+db-credentials.json
+connection-string.txt
+
+# Docker secrets
+docker-compose.override.yml
+docker-compose.secrets.yml
+
+# Kubernetes secrets
+*-secret.yaml
+*-secret.yml
+secret-*.yaml
+secret-*.yml
+
+# Terraform state files (may contain secrets)
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# Backup files
+*.backup
+*.bak
+*.old
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+tmp/
+temp/

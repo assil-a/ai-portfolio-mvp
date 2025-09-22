@@ -40,3 +40,12 @@ restart: ## Restart all services
 
 status: ## Show service status
 	docker-compose ps
+
+security-check: ## Run security validation checks
+	./security-check.sh
+
+quick-setup: ## Interactive setup wizard for first-time users
+	./quick-setup.sh
+
+test-setup: ## Test if the setup is working correctly
+	./test-setup.sh
