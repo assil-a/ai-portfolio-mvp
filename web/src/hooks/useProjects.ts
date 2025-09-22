@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { projectsApi, type CreateProjectRequest } from '../api/client';
+import { projectsApi } from '../api/client';
+import type { CreateProjectRequest } from '../types/project';
 
 export const useProjects = (params?: {
   order?: string;
