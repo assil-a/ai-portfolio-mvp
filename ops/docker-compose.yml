@@ -25,7 +25,7 @@ services:
       DATABASE_URL: postgresql://postgres:postgres@db:5432/ai_portfolio
       PORT: 8000
       GITHUB_APP_ID: ${GITHUB_APP_ID:-}
-      GITHUB_APP_PRIVATE_KEY: ${GITHUB_APP_PRIVATE_KEY:-}
+      GITHUB_APP_PRIVATE_KEY_PATH: /run/secrets/github_app_private_key
       GITHUB_WEBHOOK_SECRET: ${GITHUB_WEBHOOK_SECRET:-}
       OAUTH_GITHUB_CLIENT_ID: ${OAUTH_GITHUB_CLIENT_ID:-}
       OAUTH_GITHUB_CLIENT_SECRET: ${OAUTH_GITHUB_CLIENT_SECRET:-}
@@ -33,6 +33,8 @@ services:
       ALLOWED_ORGS: ${ALLOWED_ORGS:-}
       ADMIN_BASIC_AUTH_USER: ${ADMIN_BASIC_AUTH_USER:-}
       ADMIN_BASIC_AUTH_PASS: ${ADMIN_BASIC_AUTH_PASS:-}
+    secrets:
+      - github_app_private_key
     ports:
       - "43620:8000"
     depends_on:
@@ -67,6 +69,10 @@ services:
       - ../web:/app
       - /app/node_modules
     command: ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "4000"]
+
+secrets:
+  github_app_private_key:
+    file: ./secrets/private-key.pem
 
 volumes:
   postgres_data:
