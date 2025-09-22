@@ -7,7 +7,8 @@ import {
   TrendingUp,
   Calendar,
   Star,
-  Eye
+  Eye,
+  ArrowRight
 } from 'lucide-react';
 import { projectsApi } from '../api/client';
 
@@ -37,19 +38,27 @@ export function Dashboard({ onAddRepo }: DashboardProps) {
   const publicRepos = projects.filter(p => p.visibility === 'public').length;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* Header */}
       <div className="flex justify-between items-start">
-        <div>
-          <h1 className="text-3xl font-bold text-white mb-2">Dashboard</h1>
-          <p className="text-slate-400">Welcome back! Here's your portfolio overview.</p>
+        <div className="space-y-3">
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent">
+            Dashboard
+          </h1>
+          <p className="text-slate-300 text-xl font-medium">Welcome back! Here's your portfolio overview.</p>
+          <div className="flex items-center space-x-2 text-slate-400">
+            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+            <span className="text-sm">Live data • Updated just now</span>
+          </div>
         </div>
         <button
           onClick={onAddRepo}
-          className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl"
+          className="group flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white rounded-2xl hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
         >
-          <Plus className="w-5 h-5" />
-          <span className="font-medium">Add Repository</span>
+          <div className="p-1 bg-white/20 rounded-lg group-hover:bg-white/30 transition-all duration-300">
+            <Plus className="w-5 h-5" />
+          </div>
+          <span className="font-semibold text-lg">Add Repository</span>
         </button>
       </div>
 
@@ -89,11 +98,17 @@ export function Dashboard({ onAddRepo }: DashboardProps) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Recent Projects */}
         <div className="lg:col-span-2">
-          <div className="bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-slate-700/50 p-6">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-white">Recent Projects</h2>
-              <button className="text-blue-400 hover:text-blue-300 text-sm font-medium">
-                View All
+          <div className="bg-slate-800/40 backdrop-blur-2xl rounded-3xl border border-slate-700/30 p-8 hover:bg-slate-800/50 transition-all duration-300">
+            <div className="flex items-center justify-between mb-8">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center">
+                  <GitBranch className="w-5 h-5 text-white" />
+                </div>
+                <h2 className="text-2xl font-bold bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent">Recent Projects</h2>
+              </div>
+              <button className="group flex items-center space-x-2 px-4 py-2 bg-blue-500/20 text-blue-400 rounded-xl hover:bg-blue-500/30 hover:text-blue-300 transition-all duration-300 border border-blue-500/30">
+                <span className="text-sm font-semibold">View All</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
               </button>
             </div>
             
@@ -118,19 +133,28 @@ export function Dashboard({ onAddRepo }: DashboardProps) {
                 </button>
               </div>
             ) : (
-              <div className="space-y-4">
-                {projects.slice(0, 5).map((project) => (
+              <div className="space-y-5">
+                {projects.slice(0, 5).map((project, index) => (
                   <div
                     key={project.id}
-                    className="flex items-center justify-between p-4 bg-slate-700/30 rounded-xl hover:bg-slate-700/50 transition-colors"
+                    className="group relative flex items-center justify-between p-6 bg-slate-700/20 backdrop-blur-xl rounded-2xl border border-slate-600/20 hover:bg-slate-700/40 hover:border-slate-500/30 transition-all duration-300 transform hover:scale-[1.02] hover:-translate-y-1"
+                    style={{ animationDelay: `${index * 100}ms` }}
                   >
-                    <div className="flex items-center space-x-4">
-                      <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                        <GitBranch className="w-5 h-5 text-white" />
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 rounded-2xl transition-all duration-300"></div>
+                    
+                    <div className="relative z-10 flex items-center space-x-5">
+                      <div className="relative">
+                        <div className="w-14 h-14 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300">
+                          <GitBranch className="w-6 h-6 text-white" />
+                        </div>
+                        <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-slate-800 animate-pulse"></div>
                       </div>
-                      <div>
-                        <h3 className="text-white font-medium">{project.owner}/{project.name}</h3>
-                        <p className="text-slate-400 text-sm">
+                      <div className="space-y-1">
+                        <h3 className="text-white font-bold text-lg group-hover:text-blue-200 transition-colors duration-300">
+                          {project.owner}/{project.name}
+                        </h3>
+                        <p className="text-slate-400 text-sm font-medium">
                           {project.last_commit_at 
                             ? `Updated ${new Date(project.last_commit_at).toLocaleDateString()}`
                             : 'No recent activity'
@@ -138,18 +162,24 @@ export function Dashboard({ onAddRepo }: DashboardProps) {
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-4 text-sm text-slate-400">
-                      <div className="flex items-center space-x-1">
-                        <Users className="w-4 h-4" />
-                        <span>{project.active_contributors_90d || 0}</span>
+                    
+                    <div className="relative z-10 flex items-center space-x-6">
+                      <div className="flex items-center space-x-2 text-slate-300">
+                        <div className="p-2 bg-slate-600/30 rounded-lg">
+                          <Users className="w-4 h-4" />
+                        </div>
+                        <span className="font-semibold">{project.active_contributors_90d || 0}</span>
                       </div>
-                      <div className={`px-2 py-1 rounded-full text-xs ${
+                      <div className={`px-4 py-2 rounded-xl text-sm font-semibold border ${
                         project.visibility === 'public' 
-                          ? 'bg-green-500/20 text-green-400' 
-                          : 'bg-orange-500/20 text-orange-400'
+                          ? 'bg-green-500/20 text-green-400 border-green-500/30' 
+                          : 'bg-orange-500/20 text-orange-400 border-orange-500/30'
                       }`}>
                         {project.visibility}
                       </div>
+                      <button className="p-2 text-slate-400 hover:text-white hover:bg-slate-600/50 rounded-lg transition-all duration-300">
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
                     </div>
                   </div>
                 ))}
@@ -216,16 +246,35 @@ interface StatCardProps {
 
 function StatCard({ title, value, change, icon: Icon, gradient }: StatCardProps) {
   return (
-    <div className="bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-slate-700/50 p-6 hover:bg-slate-800/70 transition-all duration-200">
-      <div className="flex items-center justify-between mb-4">
-        <div className={`w-12 h-12 bg-gradient-to-r ${gradient} rounded-xl flex items-center justify-center`}>
-          <Icon className="w-6 h-6 text-white" />
+    <div className="group relative bg-slate-800/40 backdrop-blur-2xl rounded-3xl border border-slate-700/30 p-8 hover:bg-slate-800/60 hover:border-slate-600/50 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/10">
+      {/* Gradient overlay */}
+      <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-10 rounded-3xl transition-all duration-500`}></div>
+      
+      <div className="relative z-10">
+        <div className="flex items-center justify-between mb-6">
+          <div className={`relative w-16 h-16 bg-gradient-to-br ${gradient} rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300`}>
+            <Icon className="w-8 h-8 text-white" />
+            <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-slate-800 animate-pulse"></div>
+          </div>
+          <div className="text-right">
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-500/20 text-green-400 border border-green-500/30">
+              <TrendingUp className="w-3 h-3 mr-1" />
+              {change}
+            </span>
+          </div>
         </div>
-        <span className="text-green-400 text-sm font-medium">{change}</span>
-      </div>
-      <div>
-        <h3 className="text-2xl font-bold text-white mb-1">{value}</h3>
-        <p className="text-slate-400 text-sm">{title}</p>
+        
+        <div className="space-y-2">
+          <h3 className="text-4xl font-bold bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent">
+            {value}
+          </h3>
+          <p className="text-slate-400 text-base font-medium">{title}</p>
+        </div>
+        
+        {/* Decorative elements */}
+        <div className="absolute bottom-4 right-4 opacity-20 group-hover:opacity-40 transition-all duration-300">
+          <div className={`w-8 h-8 bg-gradient-to-br ${gradient} rounded-lg rotate-12`}></div>
+        </div>
       </div>
     </div>
   );
